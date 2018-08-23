@@ -70,3 +70,6 @@ optional arguments:
                         Show status data for given realm
 
 ```
+
+
+No need to set a region if you're EU. EU is the default region.
