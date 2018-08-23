@@ -1,8 +1,6 @@
-# World of warcraft BMAH tracker
+# World of warcraft API
 
 ***
-
-Show items on BMAH for given realm.
 
 
 Installation:
