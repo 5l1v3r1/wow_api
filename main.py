@@ -10,6 +10,7 @@ from core.realm_list import *
 from core.set_region import *
 from core.token_price import *
 from core.realm_status import *
+from core.character_feed import *
 
 banner = '''
                         ╦ ╦┌─┐┬─┐┬  ┌┬┐  ┌─┐┌─┐  ╦ ╦┌─┐┬─┐┌─┐┬─┐┌─┐┌─┐┌┬┐
@@ -36,6 +37,7 @@ def parse_args():
     # Required
     parser.add_argument("-s", "--set-region", help="Set region to EU, US or CN, default is EU. Ex: main.py -s us")
     parser.add_argument("-r", "--set-realm", help="Set Realm. Ex: main.py -r magtheridon")
+    parser.add_argument("-c", "--set-character-name", help="Set character name. Ex: main.py -r magtheridon -c zeznzo -cf")
 
     # Global
     parser.add_argument("-tp", "--token-price", action="store_true",help="Show wow token gold price for given region. ex: main.py -s us -t")
@@ -46,6 +48,7 @@ def parse_args():
     parser.add_argument("-st", "--show-realm-status", action="store_true", help="Show status data for given realm")
 
     # Character
+    parser.add_argument("-cf", "--character-feed", action="store_true", help="Show character feed. Required fields: Realm and Character")
 
     # Guild
 
@@ -71,6 +74,7 @@ else:
 
 # Grab token
 token = get_token(api_url, key, secret, bnet_url)
+#print(token)
 
 if args.realm_list:
     print(banner); realm_list(token, api_url, False)
@@ -87,3 +91,6 @@ if args.show_realm_status:
         print('Please, set a realm: main.py -r magtheridon -st')
 
     print(banner); realm_status(token, api_url, args.set_realm)
+
+if args.character_feed:
+    print(banner); print('Showing Character Feed for: %s\n' % args.set_character_name); character_feed(key, api_url, args.set_realm, args.set_character_name)
