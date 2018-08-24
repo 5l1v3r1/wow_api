@@ -20,5 +20,5 @@ def character_feed(token, api_url, realm, character):
         #print(data) # Show all data
 
     else:
-        print('[%i] Failed to get token' % get.status_code)
+        print('[ERROR] %i' % c.status_code)
         sys.exit(1)

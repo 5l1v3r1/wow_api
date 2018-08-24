@@ -21,12 +21,15 @@ def character_feed(key, api_url, realm, character):
             if type == "ACHIEVEMENT":
                 title = data['feed'][int(feed)]['achievement']['title']
                 description = data['feed'][int(feed)]['achievement']['description']
+                if len(description) > 50:
+                    description = description[:50] + '...'
                 itemid = ''
                 context = ''
             elif type == "LOOT":
                 itemid = data['feed'][int(feed)]['itemId']
                 context = data['feed'][int(feed)]['context']
                 description = ''
+                title = ''
             elif type == "BOSSKILL":
                 title = data['feed'][int(feed)]['achievement']['title']
                 description = ''
@@ -35,6 +38,8 @@ def character_feed(key, api_url, realm, character):
             elif type == "CRITERIA":
                 title = data['feed'][int(feed)]['achievement']['title']
                 description = data['feed'][int(feed)]['achievement']['description']
+                if len(description) > 50:
+                    description = description[:50] + '...'
                 itemid = ''
                 context = ''
 
@@ -44,5 +49,5 @@ def character_feed(key, api_url, realm, character):
 
 
     else:
-        print('[%i] Failed to get token' % get.status_code)
+        print('[ERROR] %i' % c.status_code)
         sys.exit(1)
