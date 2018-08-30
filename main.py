@@ -11,6 +11,7 @@ from core.set_region import *
 from core.token_price import *
 from core.realm_status import *
 from core.character_feed import *
+from core.completed_quest_tracker import *
 
 banner = '''
                         ╦ ╦┌─┐┬─┐┬  ┌┬┐  ┌─┐┌─┐  ╦ ╦┌─┐┬─┐┌─┐┬─┐┌─┐┌─┐┌┬┐
@@ -49,6 +50,7 @@ def parse_args():
 
     # Character
     parser.add_argument("-cf", "--character-feed", action="store_true", help="Show character feed. Required fields: Realm and Character")
+    parser.add_argument("-cq", "--check-quest-completion", help="Check a quest ID if completed. You can find the ID in the WoWHead link. Ex: main.py -r magtheridon -c zeznzo -cq 40983")
 
     # Guild
 
@@ -74,7 +76,6 @@ else:
 
 # Grab token
 token = get_token(api_url, key, secret, bnet_url)
-#print(token)
 
 if args.realm_list:
     print(banner); realm_list(token, api_url, False)
@@ -86,11 +87,14 @@ if args.token_price:
 if args.show_realm_status_all:
     print(banner); realm_list(token, api_url, True)
 
-if args.show_realm_status:
+if args.show_realm_status and args.set_realm:
     if not args.set_realm:
         print('Please, set a realm: main.py -r magtheridon -st')
 
     print(banner); realm_status(token, api_url, args.set_realm)
 
-if args.character_feed:
+if args.character_feed and args.set_character_name:
     print(banner); print('Showing Character Feed for: %s\n' % args.set_character_name); character_feed(key, api_url, args.set_realm, args.set_character_name)
+
+if args.check_quest_completion and args.set_realm and args.set_character_name:
+    print(banner); completed_quest_tracker(key, api_url, args.set_realm, args.set_character_name, args.check_quest_completion)

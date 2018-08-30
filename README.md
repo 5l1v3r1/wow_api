@@ -38,7 +38,8 @@ py main.py -h
 
 Usage:
 ```Shell
-usage: main.py [-h] [-s SET_REGION] [-r SET_REALM] [-tp] [-rl] [-rs] [-st]
+usage: main.py [-h] [-s SET_REGION] [-r SET_REALM] [-c SET_CHARACTER_NAME]
+               [-tp] [-rl] [-rs] [-st] [-cf] [-cq CHECK_QUEST_COMPLETION]
 
                                     WoW API Data Gatherer
 
@@ -61,6 +62,9 @@ optional arguments:
                         -s us
   -r SET_REALM, --set-realm SET_REALM
                         Set Realm. Ex: main.py -r magtheridon
+  -c SET_CHARACTER_NAME, --set-character-name SET_CHARACTER_NAME
+                        Set character name. Ex: main.py -r magtheridon -c
+                        zeznzo -cf
   -tp, --token-price    Show wow token gold price for given region. ex:
                         main.py -s us -t
   -rl, --realm-list     List all realms
@@ -68,8 +72,21 @@ optional arguments:
                         List all realms and show status data
   -st, --show-realm-status
                         Show status data for given realm
-
+  -cf, --character-feed
+                        Show character feed. Required fields: Realm and
+                        Character
+  -cq CHECK_QUEST_COMPLETION, --check-quest-completion CHECK_QUEST_COMPLETION
+                        Check a quest ID if completed. You can find the ID in
+                        the WoWHead link. Ex: main.py -r magtheridon -c zeznzo
+                        -cq 40983
 ```
 
 
 No need to set a region if you're EU. EU is the default region.
+
+
+Usage email_notify example:
+
+```Shell
+python3 email_notify.py -e mail@gmail.com -p MySecurePassword -s smtp.gmail.nl -sp 587 -r magtheridon -c zeznzo -a "Level 120"
+```
