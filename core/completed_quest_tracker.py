@@ -2,13 +2,13 @@ import requests, sys, datetime
 from tqdm import tqdm
 from prettytable import PrettyTable
 
-def completed_quest_tracker(key, api_url, realm, character, id):
+def completed_quest_tracker(key, api_url, realm, character, id, local):
 
     table = PrettyTable(['Character', 'Realm', 'Title', 'id', 'Status']) # Header
     table.align = "l" # Text Align left
 
     #headers = {"Authorization": "Bearer %s" % token}
-    url = api_url + 'wow/character/' + realm + '/' + character + '?fields=quests&locale=en_GB&apikey=' + key
+    url = api_url + 'wow/character/' + realm + '/' + character + '?fields=quests&locale=' + local + '&apikey=' + key
     c = requests.get(url)
 
     if c.status_code == 200:

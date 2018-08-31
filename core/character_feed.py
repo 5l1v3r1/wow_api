@@ -10,7 +10,7 @@ def character_feed(key, api_url, realm, character):
     table.align = "l" # Text Align left
 
     #headers = {"Authorization": "Bearer %s" % token}
-    url = api_url + 'wow/character/' + realm + '/' + character + '?fields=feed&locale=en_GB&apikey=' + key
+    url = api_url + 'wow/character/' + realm + '/' + character + '?fields=feed&locale=' + local + '&apikey=' + key
     c = requests.get(url)
 
     if c.status_code == 200:

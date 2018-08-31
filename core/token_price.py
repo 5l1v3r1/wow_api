@@ -2,9 +2,9 @@ import requests, sys, datetime
 from tqdm import tqdm
 from prettytable import PrettyTable
 
-def token_price(token, api_url):
+def token_price(token, api_url, namespace, local):
     headers = {"Authorization": "Bearer %s" % token}
-    url = api_url + 'data/wow/token/?namespace=dynamic-eu&locale=en_GB'
+    url = api_url + 'data/wow/token/?namespace=%s&locale=%s' % (namespace, local)
     c = requests.get(url, headers=headers)
 
     if c.status_code == 200:

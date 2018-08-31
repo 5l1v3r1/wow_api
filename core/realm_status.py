@@ -2,7 +2,7 @@ import requests, sys, datetime
 from tqdm import tqdm
 from prettytable import PrettyTable
 
-def realm_status(token, api_url, realm):
+def realm_status(token, api_url, realm, namespace, local):
     start = datetime.datetime.now()
     r = 0
 
@@ -11,7 +11,7 @@ def realm_status(token, api_url, realm):
 
     headers = {"Authorization": "Bearer %s" % token}
     # Url for name search and some other data
-    url = api_url + 'data/wow/realm/%s?namespace=dynamic-eu&locale=en_GB' % realm
+    url = api_url + 'data/wow/realm/%s?namespace=%s&locale=%s' % (realm, namespace, local)
     c = requests.get(url, headers=headers)
 
     if c.status_code == 200:
@@ -27,7 +27,7 @@ def realm_status(token, api_url, realm):
             timezone = data['timezone']
 
             # Url for realm que and population status and more...
-            url2 = api_url + 'data/wow/connected-realm/' + connected_realm + '?namespace=dynamic-eu&locale=en_GB'
+            url2 = api_url + 'data/wow/connected-realm/' + connected_realm + '?namespace=' + namespace + '&locale=' + local
             b = requests.get(url2, headers=headers)
             data2 = b.json()
             que = data2['has_queue']

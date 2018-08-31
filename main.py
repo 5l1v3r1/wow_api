@@ -36,7 +36,7 @@ def parse_args():
 %s''' % banner)
 
     # Required
-    parser.add_argument("-s", "--set-region", help="Set region to EU, US or CN, default is EU. Ex: main.py -s us")
+    parser.add_argument("-s", "--set-region", help="Set region to eu, us, kr or tw, default is EU. Ex: main.py -s us")
     parser.add_argument("-r", "--set-realm", help="Set Realm. Ex: main.py -r magtheridon")
     parser.add_argument("-c", "--set-character-name", help="Set character name. Ex: main.py -r magtheridon -c zeznzo -cf")
 
@@ -61,40 +61,53 @@ if args.set_region:
     if args.set_region == 'eu'.lower():
         bnet_url = "https://eu.battle.net/"
         api_url = "https://eu.api.battle.net/"
+        namespace = 'dynamic-eu'
+        local = 'en_GB'
     elif args.set_region == 'us'.lower():
         bnet_url = "https://us.battle.net/"
         api_url = "https://us.api.battle.net/"
-    elif args.set_region == 'cn'.lower():
-        bnet_url = "https://cn.battle.net/"
-        api_url = "https://cn.api.battle.net/"
+        namespace = 'dynamic-us'
+        local = 'en_US'
+    elif args.set_region == 'tw'.lower():
+        bnet_url = "https://tw.battle.net/"
+        api_url = "https://tw.api.battle.net/"
+        namespace = 'dynamic-tw'
+        local = 'ko_KR'
+    elif args.set_region == 'kr'.lower():
+        bnet_url = "https://kr.battle.net/"
+        api_url = "https://kr.api.battle.net/"
+        namespace = 'dynamic-kr'
+        local = 'ko_KR'
     else:
         print('[ERROR] Valid regions are: US, EU, CN and the default region is EU.')
 else:
     args.set_region = 'eu'.upper()
     bnet_url = 'https://eu.battle.net/'
     api_url = "https://eu.api.battle.net/"
+    namespace = 'dynamic-eu'
+    local = 'en_GB'
 
 # Grab token
 token = get_token(api_url, key, secret, bnet_url)
 
 if args.realm_list:
-    print(banner); realm_list(token, api_url, False)
+    print(banner); realm_list(token, api_url, False, namespace, local)
 
 if args.token_price:
-    g = token_price(token, api_url)
+    g = token_price(token, api_url, namespace, local)
     print(banner); print("WoW Token price %s: %i gold (%ik)" % (args.set_region, g // 10000, g // 10000000))
 
 if args.show_realm_status_all:
-    print(banner); realm_list(token, api_url, True)
+    print(banner); realm_list(token, api_url, True, namespace, local)
 
 if args.show_realm_status and args.set_realm:
     if not args.set_realm:
         print('Please, set a realm: main.py -r magtheridon -st')
 
-    print(banner); realm_status(token, api_url, args.set_realm)
+    print(banner); realm_status(token, api_url, args.set_realm, namespace, local)
 
 if args.character_feed and args.set_character_name:
     print(banner); print('Showing Character Feed for: %s\n' % args.set_character_name); character_feed(key, api_url, args.set_realm, args.set_character_name)
 
 if args.check_quest_completion and args.set_realm and args.set_character_name:
-    print(banner); completed_quest_tracker(key, api_url, args.set_realm, args.set_character_name, args.check_quest_completion)
+    print(banner); completed_quest_tracker(key, api_url, args.set_realm, args.set_character_name, args.check_quest_completion, local)
