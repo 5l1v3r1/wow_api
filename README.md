@@ -17,22 +17,26 @@ Installation:
 
 
 ```Shell
+# Install pip3
 apt install python3-pip
 ```
 
 ```Shell
+# Install required plugins
 pip3 install -r requirements.txt
 ```
 
 
 Linux:
 ```Shell
+# Make executable and run help
 chmod +x main.py
 ./main.py -h
 ```
 
 Windows:
 ```Shell
+# Execute file with Python3 for Windows and run help
 py main.py -h
 ```
 
@@ -85,8 +89,37 @@ optional arguments:
 No need to set a region if you're EU. EU is the default region.
 
 
+Other valid regions are: EU, US, TW and KR.
+
+
+Examples:
+```Shell
+# Check Quest with ID for completion
+main.py -r magtheridon -c zeznzo -cq 25
+```
+
+```Shell
+# Check WoW token gold price for US
+main.py -s us -tp
+```
+
+```Shell
+# Check character feed (completed achievements, quests and obtained loot) for given character
+main.py -r magtheridon -c zeznzo -cf
+```
+
+```Shell
+# Check character feed of a character on US
+main.py -s us -r magtheridon -c zeznzo -cf
+```
+
+```Shell
+# Check realm status such as population
+main.py -r magtheridon -st
+```
+
 Usage email_notify example:
 
 ```Shell
-python3 email_notify.py -e mail@gmail.com -p MySecurePassword -s smtp.gmail.nl -sp 587 -r magtheridon -c zeznzo -a "Level 120"
+email_notify.py -e mail@gmail.com -p MySecurePassword -s smtp.gmail.nl -sp 587 -r magtheridon -c zeznzo -a "Level 120"
 ```
