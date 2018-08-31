@@ -94,7 +94,7 @@ Other valid regions are: EU, US, TW and KR.
 
 Examples:
 ```Shell
-# Check Quest with ID for completion
+# Check Quest with ID for completion on EU
 main.py -r magtheridon -c zeznzo -cq 25
 ```
 
