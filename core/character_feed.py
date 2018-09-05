@@ -2,7 +2,7 @@ import requests, sys, datetime
 from tqdm import tqdm
 from prettytable import PrettyTable
 
-def character_feed(key, api_url, realm, character):
+def character_feed(key, api_url, realm, character, local):
     start = datetime.datetime.now()
     r = 0
 

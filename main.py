@@ -12,6 +12,7 @@ from core.token_price import *
 from core.realm_status import *
 from core.character_feed import *
 from core.completed_quest_tracker import *
+from core.auction_house_data import *
 
 banner = '''
                         ╦ ╦┌─┐┬─┐┬  ┌┬┐  ┌─┐┌─┐  ╦ ╦┌─┐┬─┐┌─┐┬─┐┌─┐┌─┐┌┬┐
@@ -53,6 +54,9 @@ def parse_args():
     parser.add_argument("-cq", "--check-quest-completion", help="Check a quest ID if completed. You can find the ID in the WoWHead link. Ex: main.py -r magtheridon -c zeznzo -cq 40983")
 
     # Guild
+
+    # AH
+    parser.add_argument("-ah", "--auction-house-data", action="store_true", help="Dump all auction house data from given realm. Ex: main.py -r magtheridon -ah")
 
     return parser.parse_args()
 args = parse_args()
@@ -107,7 +111,10 @@ if args.show_realm_status and args.set_realm:
     print(banner); realm_status(token, api_url, args.set_realm, namespace, local)
 
 if args.character_feed and args.set_character_name:
-    print(banner); print('Showing Character Feed for: %s\n' % args.set_character_name); character_feed(key, api_url, args.set_realm, args.set_character_name)
+    print(banner); print('Showing Character Feed for: %s\n' % args.set_character_name); character_feed(key, api_url, args.set_realm, args.set_character_name, local)
 
 if args.check_quest_completion and args.set_realm and args.set_character_name:
     print(banner); completed_quest_tracker(key, api_url, args.set_realm, args.set_character_name, args.check_quest_completion, local)
+
+if args.auction_house_data and args.set_realm:
+    print(banner); auction_house_data(api_url, args.set_realm, local, key)
